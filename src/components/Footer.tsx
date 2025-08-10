@@ -1,122 +1,195 @@
-import { MapPin, Phone, Mail, Globe } from "lucide-react";
+import {
+  Facebook,
+  Twitter,
+  Instagram,
+  Linkedin,
+  Mail,
+  Phone,
+  MapPin,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Footer = () => {
-  const contactInfo = [
-    { icon: MapPin, text: "Kinshasa, République Démocratique du Congo" },
-    { icon: Phone, text: "+243 XXX XXX XXX" },
-    { icon: Mail, text: "info@marsarl.org" },
-    { icon: Globe, text: "www.marsarl.org" }
-  ];
-
-  const services = [
-    "Prestations Intellectuelles",
-    "Services Techniques",
-    "Formation & École Humanitaire",
-    "Recrutement",
-    "Audit & Évaluation"
-  ];
-
-  const quickLinks = [
-    "Accueil",
-    "Qui sommes-nous",
-    "Nos Services",
-    "Offres d'emplois",
-    "Contact"
-  ];
-
   return (
-    <footer className="bg-gradient-to-br from-primary via-primary to-primary/90 text-primary-foreground">
-      <div className="container mx-auto px-4 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
-          <div className="space-y-6">
-            <div className="flex items-center space-x-3">
-              <div className="w-12 h-12 bg-accent rounded-lg flex items-center justify-center">
-                <span className="text-accent-foreground font-bold text-xl">M</span>
+    <footer className="bg-background/95 backdrop-blur-sm border-t">
+      <div className="container mx-auto px-4 py-12">
+        <div className="flex flex-wrap justify-between items-start gap-8">
+          {/* Logo and Description */}
+          <div className="flex-1 min-w-[250px]">
+            <div className="flex items-center space-x-3 mb-4">
+              <div className="w-10 h-10 flex items-center justify-center">
+                <img
+                  src="/lovable-uploads/9e5d4d77-0599-4c72-9e47-22a66839d27e.png"
+                  alt="MARS-SARL Logo"
+                  className="w-10 h-10 object-contain"
+                />
               </div>
               <div>
-                <h3 className="text-2xl font-bold">MARS DRC</h3>
-                <p className="text-primary-foreground/80">SARL</p>
+                <h3 className="text-xl font-bold text-foreground">MARS-SARL</h3>
+                <p className="text-sm text-muted-foreground">
+                  Cabinet d'Expertise
+                </p>
               </div>
             </div>
-            <p className="text-primary-foreground/80 leading-relaxed">
-              Cabinet d'expertise spécialisé dans les prestations intellectuelles 
-              et services techniques pour la bonne gouvernance et le développement durable.
+            <p className="text-muted-foreground mb-4 text-sm">
+              Cabinet d'expertise spécialisé dans les prestations
+              intellectuelles et la production de services techniques pour les
+              secteurs public et privé en RDC.
             </p>
-            <div className="space-y-3">
-              {contactInfo.map((item, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <item.icon className="h-5 w-5 text-accent" />
-                  <span className="text-sm text-primary-foreground/80">{item.text}</span>
-                </div>
-              ))}
+            <div className="flex space-x-4">
+              <a
+                href="mailto:contact@marssarl.com"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Mail size={20} />
+              </a>
+              <a
+                href="tel:+243999999999"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Phone size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <MapPin size={20} />
+              </a>
             </div>
           </div>
 
           {/* Services */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6">Nos Services</h4>
-            <ul className="space-y-3">
-              {services.map((service, index) => (
-                <li key={index}>
-                  <a 
-                    href="#services" 
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
-                  >
-                    {service}
-                  </a>
-                </li>
-              ))}
+          <div className="flex-1 min-w-[200px]">
+            <h4 className="text-lg font-semibold mb-4 text-foreground">
+              Nos Services
+            </h4>
+            <ul className="space-y-1 text-muted-foreground text-sm">
+              <li>
+                <a
+                  href="#services"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Prestations Intellectuelles
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Services Techniques
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Consulting
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Formations
+                </a>
+              </li>
             </ul>
           </div>
 
           {/* Quick Links */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6">Liens Rapides</h4>
-            <ul className="space-y-3">
-              {quickLinks.map((link, index) => (
-                <li key={index}>
-                  <a 
-                    href={`#${link.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="text-primary-foreground/80 hover:text-accent transition-colors text-sm"
-                  >
-                    {link}
-                  </a>
-                </li>
-              ))}
+          <div className="flex-1 min-w-[200px]">
+            <h4 className="text-lg font-semibold mb-4 text-foreground">
+              Liens Rapides
+            </h4>
+            <ul className="space-y-1 text-muted-foreground text-sm">
+              <li>
+                <a
+                  href="#accueil"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Accueil
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#services"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Services
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#realisations"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Réalisations
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#contact"
+                  className="hover:text-foreground transition-colors"
+                >
+                  Contact
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Newsletter */}
-          <div>
-            <h4 className="text-lg font-semibold mb-6">Restez Informé</h4>
-            <p className="text-primary-foreground/80 text-sm mb-4">
-              Abonnez-vous à notre newsletter pour recevoir nos dernières actualités et offres.
-            </p>
-            <div className="space-y-3">
-              <input
-                type="email"
-                placeholder="Votre email"
-                className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-primary-foreground placeholder-primary-foreground/60 focus:outline-none focus:ring-2 focus:ring-accent"
-              />
-              <Button variant="secondary" className="w-full bg-accent hover:bg-accent/90 text-accent-foreground">
-                S'abonner
-              </Button>
+          {/* Contact Info */}
+          <div className="flex-1 min-w-[200px]">
+            <h4 className="text-lg font-semibold mb-4 text-foreground">
+              Contact
+            </h4>
+            <div className="space-y-1 text-muted-foreground text-sm">
+              <p>
+                <Mail className="inline mr-2" size={16} /> contact@marssarl.com
+              </p>
+              <p>
+                <Phone className="inline mr-2" size={16} /> +243 999 999 999
+              </p>
+              <p>
+                <MapPin className="inline mr-2" size={16} /> Kinshasa, RDC
+              </p>
+            </div>
+            <div className="flex space-x-4 mt-4">
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Facebook size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Twitter size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Instagram size={20} />
+              </a>
+              <a
+                href="#"
+                className="text-muted-foreground hover:text-foreground"
+              >
+                <Linkedin size={20} />
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-primary-foreground/20 mt-12 pt-8">
-          <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-            <div className="text-sm text-primary-foreground/60">
-              © 2024 MARS DRC SARL. Tous droits réservés.
-            </div>
-            <div className="text-sm text-primary-foreground/60">
-              RCCM: CD/KNG/RCCM/20-B-01450 | ID.NAT: 01-H5300-N63283Y
-            </div>
-          </div>
+        <div className="border-t border-border mt-8 pt-8 text-center">
+          <p className="text-muted-foreground">
+            © 2024 MARS-SARL. Tous droits réservés. | Cabinet d'Expertise en
+            Prestations Intellectuelles
+          </p>
         </div>
       </div>
     </footer>

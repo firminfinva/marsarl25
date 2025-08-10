@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Menu, X, ChevronDown } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
@@ -8,33 +8,57 @@ const Header = () => {
 
   const menuItems = [
     { name: "Accueil", href: "#accueil" },
-    { 
-      name: "À propos", 
-      href: "#", 
+    {
+      name: "À propos",
+      href: "#",
       subItems: [
         { name: "Qui sommes-nous ?", href: "#qui-sommes-nous" },
-        { name: "Culture & Valeurs", href: "#culture-valeurs" }
-      ]
+        { name: "Culture & Valeurs", href: "#culture-valeurs" },
+      ],
     },
     { name: "Nos Services", href: "#services" },
-    { 
-      name: "Opportunités", 
-      href: "#", 
+    {
+      name: "Opportunités",
+      href: "#",
       subItems: [
         { name: "Offres d'emplois", href: "#emplois" },
         { name: "Formations", href: "#formations" },
-        { name: "Appels d'offres", href: "#appels-offres" }
-      ]
+        { name: "Appels d'offres", href: "#appels-offres" },
+      ],
     },
-    { 
-      name: "Ressources", 
-      href: "#", 
+    {
+      name: "Ressources",
+      href: "#",
       subItems: [
         { name: "Réalisations", href: "#realisations" },
-        { name: "Partenaires", href: "#partenaires" }
-      ]
+        { name: "Partenaires", href: "#partenaires" },
+      ],
     },
   ];
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const headerOffset = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition =
+        elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
+  const handleLinkClick = (e: React.MouseEvent, href: string) => {
+    e.preventDefault();
+    if (href.startsWith("#")) {
+      const sectionId = href.substring(1);
+      scrollToSection(sectionId);
+    }
+    setIsMenuOpen(false);
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b shadow-card">
@@ -43,15 +67,15 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center space-x-3">
             <div className="w-12 h-12 flex items-center justify-center">
-              <img 
-                src="/lovable-uploads/9e5d4d77-0599-4c72-9e47-22a66839d27e.png" 
-                alt="MARS-DRC Logo" 
+              <img
+                src="/lovable-uploads/9e5d4d77-0599-4c72-9e47-22a66839d27e.png"
+                alt="MARS-DRC Logo"
                 className="w-12 h-12 object-contain"
               />
             </div>
             <div>
               <h1 className="text-xl font-bold text-foreground">MARS-DRC</h1>
-              <p className="text-xs text-muted-foreground">SARL</p>
+              {/* <p className="text-xs text-muted-foreground">SARL</p> */}
             </div>
           </div>
 
@@ -64,15 +88,16 @@ const Header = () => {
                     <button
                       className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
                       onMouseEnter={() => setActiveDropdown(item.name)}
-                      onMouseLeave={() => setActiveDropdown(null)}
                     >
                       <span>{item.name}</span>
                       <ChevronDown size={16} />
                     </button>
                     {/* Dropdown Menu */}
-                    <div 
-                      className={`absolute top-full left-0 mt-2 w-56 bg-background border shadow-lg rounded-lg z-50 transition-opacity duration-200 ${
-                        activeDropdown === item.name ? 'opacity-100 visible' : 'opacity-0 invisible'
+                    <div
+                      className={`absolute top-full left-0 mt-2 w-56 bg-background border shadow-lg rounded-lg z-50 transition-all duration-300 ${
+                        activeDropdown === item.name
+                          ? "opacity-100 visible translate-y-0"
+                          : "opacity-0 invisible -translate-y-2"
                       }`}
                       onMouseEnter={() => setActiveDropdown(item.name)}
                       onMouseLeave={() => setActiveDropdown(null)}
@@ -82,7 +107,8 @@ const Header = () => {
                           <a
                             key={subItem.name}
                             href={subItem.href}
-                            className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-secondary transition-colors duration-200"
+                            onClick={(e) => handleLinkClick(e, subItem.href)}
+                            className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-accent/20 transition-colors duration-200 cursor-pointer"
                           >
                             {subItem.name}
                           </a>
@@ -93,7 +119,8 @@ const Header = () => {
                 ) : (
                   <a
                     href={item.href}
-                    className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
+                    onClick={(e) => handleLinkClick(e, item.href)}
+                    className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-200 cursor-pointer"
                   >
                     {item.name}
                   </a>
@@ -102,9 +129,18 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Contact Button */}
-          <div className="hidden lg:block">
-            <Button variant="default" className="bg-gradient-primary text-white hover:shadow-glow transition-all duration-300">
+          {/* Admin Portal & Contact Button */}
+          <div className="hidden lg:flex items-center space-x-4">
+            <a
+              href="/admin"
+              className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
+            >
+              Admin Portal
+            </a>
+            <Button
+              variant="default"
+              className="bg-gradient-primary text-white hover:shadow-glow transition-all duration-300"
+            >
               Contact
             </Button>
           </div>
@@ -133,8 +169,8 @@ const Header = () => {
                         <a
                           key={subItem.name}
                           href={subItem.href}
-                          className="block px-6 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200"
-                          onClick={() => setIsMenuOpen(false)}
+                          onClick={(e) => handleLinkClick(e, subItem.href)}
+                          className="block px-6 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200 cursor-pointer"
                         >
                           {subItem.name}
                         </a>
@@ -143,8 +179,8 @@ const Header = () => {
                   ) : (
                     <a
                       href={item.href}
-                      className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200"
-                      onClick={() => setIsMenuOpen(false)}
+                      onClick={(e) => handleLinkClick(e, item.href)}
+                      className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200 cursor-pointer"
                     >
                       {item.name}
                     </a>
@@ -152,7 +188,10 @@ const Header = () => {
                 </div>
               ))}
               <div className="pt-4">
-                <Button variant="default" className="w-full bg-gradient-primary text-white">
+                <Button
+                  variant="default"
+                  className="w-full bg-gradient-primary text-white"
+                >
                   Contact
                 </Button>
               </div>
