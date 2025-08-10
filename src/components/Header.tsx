@@ -1,20 +1,39 @@
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const menuItems = [
     { name: "Accueil", href: "#accueil" },
-    { name: "Qui sommes-nous ?", href: "#qui-sommes-nous" },
-    { name: "Culture & Valeurs", href: "#culture-valeurs" },
+    { 
+      name: "À propos", 
+      href: "#", 
+      subItems: [
+        { name: "Qui sommes-nous ?", href: "#qui-sommes-nous" },
+        { name: "Culture & Valeurs", href: "#culture-valeurs" }
+      ]
+    },
     { name: "Nos Services", href: "#services" },
-    { name: "Offres d'emplois", href: "#emplois" },
-    { name: "Formations", href: "#formations" },
-    { name: "Réalisations", href: "#realisations" },
-    { name: "Partenaires", href: "#partenaires" },
-    { name: "Appels d'offres", href: "#appels-offres" },
+    { 
+      name: "Opportunités", 
+      href: "#", 
+      subItems: [
+        { name: "Offres d'emplois", href: "#emplois" },
+        { name: "Formations", href: "#formations" },
+        { name: "Appels d'offres", href: "#appels-offres" }
+      ]
+    },
+    { 
+      name: "Ressources", 
+      href: "#", 
+      subItems: [
+        { name: "Réalisations", href: "#realisations" },
+        { name: "Partenaires", href: "#partenaires" }
+      ]
+    },
   ];
 
   return (
@@ -33,15 +52,49 @@ const Header = () => {
           </div>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex items-center space-x-8">
+          <nav className="hidden lg:flex items-center space-x-6">
             {menuItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
-              >
-                {item.name}
-              </a>
+              <div key={item.name} className="relative group">
+                {item.subItems ? (
+                  <>
+                    <button
+                      className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
+                      onMouseEnter={() => setActiveDropdown(item.name)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <span>{item.name}</span>
+                      <ChevronDown size={16} />
+                    </button>
+                    {/* Dropdown Menu */}
+                    <div 
+                      className={`absolute top-full left-0 mt-2 w-56 bg-background border shadow-lg rounded-lg z-50 transition-opacity duration-200 ${
+                        activeDropdown === item.name ? 'opacity-100 visible' : 'opacity-0 invisible'
+                      }`}
+                      onMouseEnter={() => setActiveDropdown(item.name)}
+                      onMouseLeave={() => setActiveDropdown(null)}
+                    >
+                      <div className="py-2">
+                        {item.subItems.map((subItem) => (
+                          <a
+                            key={subItem.name}
+                            href={subItem.href}
+                            className="block px-4 py-2 text-sm text-foreground hover:text-primary hover:bg-secondary transition-colors duration-200"
+                          >
+                            {subItem.name}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  </>
+                ) : (
+                  <a
+                    href={item.href}
+                    className="text-sm font-medium text-foreground hover:text-primary transition-colors duration-200"
+                  >
+                    {item.name}
+                  </a>
+                )}
+              </div>
             ))}
           </nav>
 
@@ -66,14 +119,33 @@ const Header = () => {
           <div className="lg:hidden border-t bg-background">
             <div className="px-2 pt-2 pb-3 space-y-1">
               {menuItems.map((item) => (
-                <a
-                  key={item.name}
-                  href={item.href}
-                  className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200"
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  {item.name}
-                </a>
+                <div key={item.name}>
+                  {item.subItems ? (
+                    <>
+                      <div className="px-3 py-2 text-base font-medium text-foreground border-b border-secondary">
+                        {item.name}
+                      </div>
+                      {item.subItems.map((subItem) => (
+                        <a
+                          key={subItem.name}
+                          href={subItem.href}
+                          className="block px-6 py-2 text-sm text-muted-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200"
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {subItem.name}
+                        </a>
+                      ))}
+                    </>
+                  ) : (
+                    <a
+                      href={item.href}
+                      className="block px-3 py-2 text-base font-medium text-foreground hover:text-primary hover:bg-secondary rounded-md transition-colors duration-200"
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      {item.name}
+                    </a>
+                  )}
+                </div>
               ))}
               <div className="pt-4">
                 <Button variant="default" className="w-full bg-gradient-primary">
