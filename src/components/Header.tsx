@@ -42,11 +42,15 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-lg">M</span>
+            <div className="w-12 h-12 flex items-center justify-center">
+              <img 
+                src="/lovable-uploads/9e5d4d77-0599-4c72-9e47-22a66839d27e.png" 
+                alt="MARS-DRC Logo" 
+                className="w-12 h-12 object-contain"
+              />
             </div>
             <div>
-              <h1 className="text-xl font-bold text-foreground">MARS DRC</h1>
+              <h1 className="text-xl font-bold text-foreground">MARS-DRC</h1>
               <p className="text-xs text-muted-foreground">SARL</p>
             </div>
           </div>
