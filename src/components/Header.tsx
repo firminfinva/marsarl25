@@ -104,7 +104,7 @@ const Header = () => {
 
           {/* Contact Button */}
           <div className="hidden lg:block">
-            <Button variant="default" className="bg-gradient-primary hover:shadow-glow">
+            <Button variant="default" className="bg-gradient-primary text-white hover:shadow-glow transition-all duration-300">
               Contact
             </Button>
           </div>
@@ -152,7 +152,7 @@ const Header = () => {
                 </div>
               ))}
               <div className="pt-4">
-                <Button variant="default" className="w-full bg-gradient-primary">
+                <Button variant="default" className="w-full bg-gradient-primary text-white">
                   Contact
                 </Button>
               </div>
